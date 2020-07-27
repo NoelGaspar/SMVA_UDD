@@ -6,15 +6,18 @@ SMVA-Server code testing
 import socketio
 import time
 
-SERVER_IP_ADDR = '192.168.0.9'
+SERVER_IP_ADDR = '192.168.0.8'
 sio = socketio.Client()
-cnt = 0
 
 def send_data():
+  cnt = 0
   sio.emit('my_message',{'data':cnt})
-  while cnt<1000:
-    sio.emit('my_message',{'data':cnt})
-    cnt+=1
+  while True:
+    while cnt<10:
+      sio.emit('my_message',{'data':cnt})
+      cnt+=1
+    cnt=0	    
+    sio.sleep(5)
 
 
 @sio.event
