@@ -1,38 +1,37 @@
+#!/usr/bin/env python3
+
 """
 SMVA-Server code testing
-
+https://python-socketio.readthedocs.io/en/latest/
 
 """
-import socketio
-import time
+import socket
+import sys
+import os
+from datetime import datetime
+
+
 
 SERVER_IP_ADDR = '192.168.0.8'
-sio = socketio.Client()
+SERVER_PORT = 777
 
-def send_data():
-  cnt = 0
-  sio.emit('my_message',{'data':cnt})
-  while True:
-    while cnt<10:
-      sio.emit('my_message',{'data':cnt})
-      cnt+=1
-    cnt=0	    
-    sio.sleep(5)
+SAMPLE_RATE = 2000 # [Hz]
+SMAPLE_TIME = 1    # [s]
+
+send_filename = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")+".csv"
+os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
 
 
-@sio.event
-def connect():
-    print('connection established')
-    sio.start_background_task(send_data)
+client_socket = socket.socket()
+client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
 
-@sio.event
-def my_message(data):
-    print('message received with ', data)
-    sio.emit('my response', {'response': 'my response'})
 
-@sio.event
-def disconnect():
-    print('disconnected from server')
+send_file = open(send_filename, "rb")
+SendData = send_file.read(4096)
 
-sio.connect('http://'+SERVER_IP_ADDR+':5000')
-#sio.wait()
+while SendedData:
+  print("\n msg from server", client_socket.recv(1024),decode("utf-8"))
+  client_socket.send(SendData)
+  SendData = send_file.read(1024)
+
+client_socket.close() 

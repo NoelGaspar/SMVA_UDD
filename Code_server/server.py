@@ -1,25 +1,42 @@
 """
 SMVA-Server code testing
-
-
+using socketio. 
+https://python-socketio.readthedocs.io/en/latest/
 """
 import eventlet
-import socketio
+import socket
+from datetime import datetime
 
-sio = socketio.Server()
-app = socketio.WSGIApp(sio)
+PORT = 777
 
-@sio.event
-def connect(sid, environ):
-    print('connect ', sid)
 
-@sio.event
-def my_message(sid, data):
-    print('message ', data)
 
-@sio.event
-def disconnect(sid):
-    print('disconnect ', sid)
+mysocket = socket.socket()
 
-if __name__ == '__main__':
-    eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
+print("\n Server is listing on port:",PORT,"\n")
+
+mysocket.bind(('',PORT))
+mysocket.listen(10)
+
+rcv_filename = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")+".csv"
+rcv_file = open(rcv_filename,"a+")
+print("\n Copied file will be recived be ",rcv_filename," at server side")
+
+while True:
+  myconn,addr_conn = s.accept()
+  msg = "\n Hi Client [IP address:"+addr_conn[0]+"]"
+  myconn.send(msg.encode())
+
+  RecivedData = myconn.recv(4096)
+  while RecivedData:
+    rcv_file.write(RecivedData)
+    RecivedData = myconn.recv(4096)
+
+  rcv_file.close()
+  print("\n File has been copied successfully \n")
+  
+  myconn.close()
+  print("\n Server closed the connection \n")
+
+  break
+
