@@ -11,7 +11,7 @@ PORT = 777
 BUFF_SIZE = 1024
 
 
-mysocket = socket.socket()
+server_socket = socket.socket()
 
 print("\n Server is listing on port:",PORT,"\n")
 
