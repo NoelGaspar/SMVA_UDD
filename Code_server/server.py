@@ -26,11 +26,15 @@ while True:
   myconn,addr_conn = server_socket.accept()
   msg = "\n Hi Client [IP address:"+addr_conn[0]+"]"
   myconn.send(msg.encode())
-
+  print("reciving data")
   RecivedData = myconn.recv(BUFF_SIZE).decode()
+  print(RecivedData)
   while RecivedData:
+    print("writing data")
     rcv_file.write(RecivedData)
+    print("reciving another bounch of data")
     RecivedData = myconn.recv(BUFF_SIZE).decode()
+    print(RecivedData)
 
   rcv_file.close()
   print("\n File has been copied successfully \n")
