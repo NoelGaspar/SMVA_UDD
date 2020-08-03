@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 
-SERVER_IP_ADDR = '192.168.0.8'
+SERVER_IP_ADDR = '192.168.0.10'
 SERVER_PORT = 777
 
 SAMPLE_RATE = 2000 # [Hz]
@@ -29,8 +29,8 @@ client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
 send_file = open(send_filename, "rb")
 SendData = send_file.read(4096)
 
-while SendedData:
-  print("\n msg from server", client_socket.recv(1024),decode("utf-8"))
+while SendData:
+  print("\n msg from server", client_socket.recv(1024).decode("utf-8"))
   client_socket.send(SendData)
   SendData = send_file.read(1024)
 
