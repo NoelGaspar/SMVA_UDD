@@ -33,7 +33,6 @@ SendData = send_file.read(BUFF_SIZE)
 print("data to send")
 
 while SendData:
-  print("\n msg from server", client_socket.recv(BUFF_SIZE).decode("utf-8"))
   print(SendData)
   client_socket.send(SendData)
   SendData = send_file.read(BUFF_SIZE)
