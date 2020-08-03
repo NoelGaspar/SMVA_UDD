@@ -18,6 +18,8 @@ SERVER_PORT = 777
 SAMPLE_RATE = 2000 # [Hz]
 SMAPLE_TIME = 1    # [s]
 
+BUFF_SIZE = 1024
+
 send_filename = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")+".csv"
 os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
 
@@ -27,11 +29,11 @@ client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
 
 
 send_file = open(send_filename, "rb")
-SendData = send_file.read(4096)
+SendData = send_file.read(BUFF_SIZE)
 
 while SendData:
-  print("\n msg from server", client_socket.recv(1024).decode("utf-8"))
+  print("\n msg from server", client_socket.recv(BUFF_SIZE).decode("utf-8"))
   client_socket.send(SendData)
-  SendData = send_file.read(1024)
+  SendData = send_file.read(BUFF_SIZE)
 
 client_socket.close() 

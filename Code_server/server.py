@@ -8,7 +8,7 @@ import socket
 from datetime import datetime
 
 PORT = 777
-
+BUFF_SIZE = 1024
 
 
 mysocket = socket.socket()
@@ -27,10 +27,10 @@ while True:
   msg = "\n Hi Client [IP address:"+addr_conn[0]+"]"
   myconn.send(msg.encode())
 
-  RecivedData = myconn.recv(4096)
+  RecivedData = myconn.recv(BUFF_SIZE).decode()
   while RecivedData:
     rcv_file.write(RecivedData)
-    RecivedData = myconn.recv(4096)
+    RecivedData = myconn.recv(BUFF_SIZE).decode()
 
   rcv_file.close()
   print("\n File has been copied successfully \n")
