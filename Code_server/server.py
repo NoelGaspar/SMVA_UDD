@@ -6,10 +6,16 @@ using socket.
 import eventlet
 import socket
 from datetime import datetime
+import numpy as np
+from matplotlib import mlab
+import matplotlib.pyplot as plt
+
 
 PORT = 777
 BUFF_SIZE = 1024
 
+SAMPLE_RATE = 2000 # [Hz]
+SMAPLE_TIME = 1    # [s]
 
 server_socket = socket.socket()
 
@@ -36,6 +42,9 @@ while True:
     myconn.settimeout(5.0)
     RecivedData = myconn.recv(BUFF_SIZE)
     print(RecivedData)
+  
+
+
 
   rcv_file.close()
   print("\n File has been copied successfully \n")
@@ -43,6 +52,19 @@ while True:
   myconn.close()
   print("\n Server closed the connection \n")
   server_socket.close()
+  print("\n Plotting... \n")
+  acc_data = np.genfromtxt(rcv_filename, delimiter=',', names=True)
+  acc_x, freq_x, _ = mlab.specgram(acc_data['x'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  acc_y, freq_y, _ = mlab.specgram(acc_data['y'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  acc_z, freq_z, _ = mlab.specgram(acc_data['z'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  plt.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
+  plt.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
+  plt.plot(freq_z[10:], acc_z[10:], label='z', linewidth=0.5)
+  plt.yscale('log')
+  plt.xlim((0, 160))
+  plt.legend(loc='upper right')
+  plt.show()
+  plt.savefig('spectrum.png')
 
   break
 
