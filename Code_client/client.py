@@ -6,37 +6,50 @@ https://python-socketio.readthedocs.io/en/latest/
 
 """
 import socket
+import signal
 import sys
 import os
-from datetime import datetime
+import RPi.GPIO as GPIO
+import time
 
+TRIGGER_GPIO = 16
 
-
-
-SERVER_IP_ADDR = '192.168.0.10'
+SERVER_IP_ADDR = '192.168.0.3'
 SERVER_PORT = 777
 
-SAMPLE_RATE = 2000 # [Hz]
-SMAPLE_TIME = 1    # [s]
+SAMPLE_RATE = 3200 # [Hz]
+SMAPLE_TIME = 2.5  # [s]
 
-BUFF_SIZE = 1024
-
-send_filename = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")+".csv"
-os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
+BUFF_SIZE = 4000
 
 
-client_socket = socket.socket()
-client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
+def signal_handler(sig,frame):
+  GPIO.cleanup()
+  client_socket.close() 
+  sys.exit(0)
 
-
-send_file = open(send_filename, "rb")
-SendData = send_file.read(BUFF_SIZE)
-print("data to send")
-
-while SendData:
-  print(SendData)
-  client_socket.send(SendData)
+def trigger_callback(channel):
+  print("triggered")
+  send_filename =str(int( time.time()))+".csv"
+  os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
+  send_file = open(send_filename, "rb")
   SendData = send_file.read(BUFF_SIZE)
-  print("more data to send")
-  print(SendData)
-client_socket.close() 
+  client_socket.send(SendData)
+  send_file.close()
+
+
+if __name__ == '__main__':
+  
+  GPIO.setmode(GPIO.BCM)
+  GPIO.setup(TRIGGER_GPIO,GPIO.IN)
+
+  client_socket = socket.socket()
+  client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
+
+  GPIO.add_event_detect(TRIGGER_GPIO,GPIO.RISSING,callback = trigger_callback, bouncetime=100)
+  signal.signal(signal.SIGINT,signal_handler)
+  signal.pause()
+
+ 
+  while(1): 
+    pass
