@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 PORT = 777
 BUFF_SIZE = 1024
 
-SAMPLE_RATE = 2000 # [Hz]
-SMAPLE_TIME = 1    # [s]
+SAMPLE_RATE = 3200 # [Hz]
+SMAPLE_TIME = 2.5    # [s]
 
 server_socket = socket.socket()
 

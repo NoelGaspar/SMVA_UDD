@@ -1,0 +1,4 @@
+TODO list:
+
+- make fix server addres
+- add multiple client options
