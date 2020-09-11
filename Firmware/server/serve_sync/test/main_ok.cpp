@@ -31,7 +31,6 @@ cmd:
 
 //PINs
 #define TRIGGER_PIN 12
-#define TESTLED_PIN 2
 //CMDs
 #define CMD_TRIGGER 1
 #define CMD_STOP    2
@@ -60,8 +59,7 @@ void processCMD(int msg);
 void setup() 
 {
   Serial.begin(115200);
-  pinMode(TESTLED_PIN,OUTPUT);
-
+  
   WiFi.mode(WIFI_STA);
   if (esp_now_init() != ESP_OK)
   {
@@ -120,24 +118,18 @@ void processCMD(int msg)
   {
   case '1':
     cmd.cmd = CMD_TRIGGER;
-    digitalWrite(TESTLED_PIN,1);
     break;
   case '2':
     cmd.cmd = CMD_STOP;
-    digitalWrite(TESTLED_PIN,1);
     break;
   case '3':
     cmd.cmd = CMD_START;
-    digitalWrite(TESTLED_PIN,1);
     break;
   default:
     cmd.cmd = CMD_IDLE;
-    digitalWrite(TESTLED_PIN,0);
     break;
   }
-
-  Serial.print("Message to broadcast : ");
-  Serial.println(cmd.cmd);
+  Serial.print("Message to broadcast : ");Serial.println(cmd.cmd);
   esp_err_t result = esp_now_send(0, (uint8_t *) &cmd, sizeof(cmd_struct));
   Serial.println((result==ESP_OK)?"Sent with success":"Error sending the data");
 }

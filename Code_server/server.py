@@ -1,21 +1,27 @@
-"""
-SMVA-Server code testing
-using socket. 
+# -*- coding: utf-8 -*-
+# SMVA-Server: implement server main functions. 
+#               use socket lib for manager the web socket comunication.
+# wac@iowlabs
+#
 
-"""
 import eventlet
 import socket
 from datetime import datetime
+import time 
+import threading
+import sys
+import trigger
+#imports for math and plot
 import numpy as np
 from matplotlib import mlab
 import matplotlib.pyplot as plt
 
 
 PORT = 777
-BUFF_SIZE = 1024
+BUFF_SIZE = 4000
 
 SAMPLE_RATE = 3200 # [Hz]
-SMAPLE_TIME = 2.5    # [s]
+SMAPLE_TIME = 2.5  # [s]
 
 server_socket = socket.socket()
 

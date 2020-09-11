@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# SMVA-Client: implement client code
+#               use socket lib for manager the web socket comunication.
+# wac@iowlabs
+#
 
-"""
-SMVA-Server code testing
-https://python-socketio.readthedocs.io/en/latest/
-
-"""
 import socket
 import signal
 import sys
@@ -12,7 +11,7 @@ import os
 import RPi.GPIO as GPIO
 import time
 
-TRIGGER_GPIO = 16
+TRIGGER_GPIO = 19
 
 SERVER_IP_ADDR = '192.168.0.3'
 SERVER_PORT = 777
@@ -36,7 +35,6 @@ def trigger_callback(channel):
   SendData = send_file.read(BUFF_SIZE)
   client_socket.send(SendData)
   send_file.close()
-
 
 if __name__ == '__main__':
   
