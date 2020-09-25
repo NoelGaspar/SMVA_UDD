@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+
 # serial com: implement low level serial comunications functions 
 # wac@iowlabs
 #
+
+print("Access-Control-Allow-Origin: *")
+print("Content-Type: application/json; charset=UTF-8")
+print()
 
 import serial
 import numpy as np
