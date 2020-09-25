@@ -12,6 +12,7 @@ import threading
 from _thread import *
 import sys
 import trigger
+from trigger import *
 #imports for do math and plot
 import numpy as np
 from matplotlib import mlab
