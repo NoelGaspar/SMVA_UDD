@@ -2,6 +2,11 @@
 # trigger: implement trigger functions
 # wac@iowlabs
 #
+
+print("Access-Control-Allow-Origin: *")
+print("Content-Type: application/json; charset=UTF-8")
+print()
+
 import sys,getopt 
 import time
 import serial_com
@@ -58,42 +63,43 @@ def triggerMenu():
 
 if __name__ == '__main__':
 
-  start = False
-  
-  try:
-    opts,args = getopt.getopt(sys.argv[1:],"hps:",["port="])
-  except getopt.GetoptError:
-    print('try trigger.py -p <port>')
-    sys.exit(2)
+  #start = False
 
-  for opt, arg in opts:
-    if opt == '-h':
-      print('trigger.py -p <port>')
-    elif opt in ("-p", "--port"):
-      print("port",arg)
-      COM_PORT =  arg
-      start = True
-    elif opt in ("-s", "--start"):
-      start = True
+  start = False
+#  try:
+#    opts,args = getopt.getopt(sys.argv[1:],"hps:",["port="])
+#  except getopt.GetoptError:
+#    print('try trigger.py -p <port>')
+#    sys.exit(2)
+
+#  for opt, arg in opts:
+#    if opt == '-h':
+#      print('trigger.py -p <port>')
+#    elif opt in ("-p", "--port"):
+#      print("port",arg)
+#      COM_PORT =  arg
+#      start = True
+#    elif opt in ("-s", "--start"):
+#      start = True
 
   if start :
     com_init(COM_PORT)
     triggerAuto(False)
     #com_close()
-    
+  
     triggerMenu()
     while True:
       command =  int(input("ingrese opción"))
       if command == 1:
         triggerOnce()
-      elif command == 2:  
-        triggerAuto(True)
-      elif command == 3:  
-        triggerAuto(False)
-      elif command == 4:   
-        triggerMenu()
-      elif command == 5:
-        esp.close()
-        sys.exit()
-      else:
-        triggerMenu()
+        elif command == 2:  
+          triggerAuto(True)
+        elif command == 3:  
+          triggerAuto(False)
+        elif command == 4:   
+          triggerMenu()
+        elif command == 5:
+          esp.close()
+          sys.exit()
+        else:
+          triggerMenu()
