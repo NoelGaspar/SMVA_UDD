@@ -30,7 +30,8 @@ PATH_DATA = "./recived_data/"
 TYPE_DATA_ACC = "acc/"
 TYPE_DATA_FFT = "fft/"
 
-COM_PORT = 'COM5'
+#COM_PORT = 'COM5'
+COM_PORT = 'usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0'
 
 server_socket = socket.socket()
 
