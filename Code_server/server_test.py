@@ -24,7 +24,7 @@ BUFF_SIZE = 4096
 SEPARATOR = ","
 
 SAMPLE_RATE = 3200 # [Hz]
-SMAPLE_TIME = 2.5  # [s]
+SMAPLE_TIME = 2  # [s]
 
 PATH_DATA = "./recived_data/"
 TYPE_DATA_ACC = "acc/"
