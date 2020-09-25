@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
 
 # serial com: implement low level serial comunications functions 
 # wac@iowlabs
