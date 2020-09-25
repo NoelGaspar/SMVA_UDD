@@ -39,6 +39,11 @@ def triggerAuto( start ):
   else:
     esp.send(CMD_STOP)
 
+def com_close( ):
+  esp.close()
+  sys.exit()
+
+
 def triggerMenu():
   print("------Menu------")
   print("1. single trigger")
@@ -46,6 +51,9 @@ def triggerMenu():
   print("3. stop triggering")
   print("4. menu")
   print("5. close")
+
+
+
 
 if __name__ == '__main__':
 
@@ -67,26 +75,24 @@ if __name__ == '__main__':
   
   if start :
     com_init(COM_PORT)
-
-    #t = threading.Thread(target=receive_and_print)
-    #t.daemon = True
-    #t.start()
-
-    triggerMenu()
-    while True:
-      command =  int(input("ingrese opción"))
-      if command == 1:
-        triggerOnce()
-      elif command == 2:  
-        triggerAuto(True)
-      elif command == 3:  
-        triggerAuto(False)
-      elif command == 4:   
-        triggerMenu()
-      elif command == 5:
-        esp.close()
-        sys.exit()
-      else:
-        triggerMenu()
+    triggerAuto(False)
+    com_close()
+    
+    #triggerMenu()
+    #while True:
+    #  command =  int(input("ingrese opción"))
+    #  if command == 1:
+    #    triggerOnce()
+    #  elif command == 2:  
+    #    triggerAuto(True)
+    #  elif command == 3:  
+    #    triggerAuto(False)
+    #  elif command == 4:   
+    #    triggerMenu()
+    #  elif command == 5:
+    #    esp.close()
+    #    sys.exit()
+    #  else:
+    #    triggerMenu()
 
     
