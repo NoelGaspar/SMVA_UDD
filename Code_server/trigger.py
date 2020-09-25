@@ -61,7 +61,7 @@ if __name__ == '__main__':
   start = False
   
   try:
-    opts,args = getopt.getopt(sys.argv[1:],"hp:",["port="])
+    opts,args = getopt.getopt(sys.argv[1:],"hps:",["port="])
   except getopt.GetoptError:
     print('try trigger.py -p <port>')
     sys.exit(2)
