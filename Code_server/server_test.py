@@ -71,7 +71,7 @@ def threaded_recv(recv_conn ):
 
   print("\n Plotting... \n")
   plot_acc = plt.figure(1)
-  plot_fft = plt.figure(2)
+  
 
   acc_data = np.genfromtxt(rcv_filename, delimiter=',', names=True)
   acc_x, freq_x, _ = mlab.specgram(acc_data['x'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
@@ -81,25 +81,28 @@ def threaded_recv(recv_conn ):
   data_fft = np.column_stack((freq_x,acc_x,acc_y,acc_z))
   np.savetxt(fft_filename, data_fft, delimiter=',', header="f,ax,ay,az")
   
-  plot_acc.clf()
-  plot_fft.clf()
+  
+  plt.clf()
 
-  plot_fft.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
-  plot_fft.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
-  plot_fft.plot(freq_z[10:], acc_z[10:], label='z', linewidth=0.5)
-  plot_fft.yscale('log')
-  plot_fft.xlim((0, 200))
-  plot_fft.legend(loc='upper right')
-  plot_fft.title('FFT')
-  plot_fft.show()
+  plt.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
+  plt.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
+  plt.plot(freq_z[10:], acc_z[10:], label='z', linewidth=0.5)
+  plt.yscale('log')
+  plt.xlim((0, 200))
+  plt.legend(loc='upper right')
+  plt.title('FFT')
+  #plt.show()
   #plt.savefig('spectrum.png')
 
-  plot_acc.plot(acc_data['time'],acc_data['x'],label='x', linewidth=0.5)
-  plot_acc.plot(acc_data['time'],acc_data['y'],label='y', linewidth=0.5)
-  plot_acc.plot(acc_data['time'],acc_data['z'],label='z', linewidth=0.5)
-  plot_acc.legend(loc='upper right')
-  plot_acc.title("Acceleration")
-  plot_acc.show()
+  plot_fft = plt.figure(2)
+
+  plt.plot(acc_data['time'],acc_data['x'],label='x', linewidth=0.5)
+  plt.plot(acc_data['time'],acc_data['y'],label='y', linewidth=0.5)
+  plt.plot(acc_data['time'],acc_data['z'],label='z', linewidth=0.5)
+  plt.legend(loc='upper right')
+  plt.title("Acceleration")
+  
+  plt.show()
 
 
 com_init(COM_PORT)
