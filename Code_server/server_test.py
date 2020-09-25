@@ -106,15 +106,11 @@ def threaded_recv(recv_conn ):
   
   plt.show()
 
-com_init(COM_PORT)
-triggerAuto(True)
+#com_init(COM_PORT)
+#triggerAuto(True)
 while True: 
   myconn,addr_conn = server_socket.accept()
   print(f"connected to{addr_conn}")
   start_new_thread(threaded_recv,(myconn, ) )
 server_socket.close()
-triggerAuto(False)
-    
-
-
-    
+#triggerAuto(False)

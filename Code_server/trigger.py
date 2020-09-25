@@ -71,7 +71,7 @@ if __name__ == '__main__':
       print('trigger.py -p <port>')
     elif opt in ("-p", "--port"):
       print("port",arg)
-      COM_PORT =  arg
+      #COM_PORT =  arg
       start = True
   
   if start :
@@ -79,21 +79,21 @@ if __name__ == '__main__':
     triggerAuto(False)
     com_close()
     
-    #triggerMenu()
-    #while True:
-    #  command =  int(input("ingrese opción"))
-    #  if command == 1:
-    #    triggerOnce()
-    #  elif command == 2:  
-    #    triggerAuto(True)
-    #  elif command == 3:  
-    #    triggerAuto(False)
-    #  elif command == 4:   
-    #    triggerMenu()
-    #  elif command == 5:
-    #    esp.close()
-    #    sys.exit()
-    #  else:
-    #    triggerMenu()
+    triggerMenu()
+    while True:
+      command =  int(input("ingrese opción"))
+      if command == 1:
+        triggerOnce()
+      elif command == 2:  
+        triggerAuto(True)
+      elif command == 3:  
+        triggerAuto(False)
+      elif command == 4:   
+        triggerMenu()
+      elif command == 5:
+        esp.close()
+        sys.exit()
+      else:
+        triggerMenu()
 
     
