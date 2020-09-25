@@ -70,6 +70,10 @@ def threaded_recv(recv_conn ):
   recv_conn.close()
 
   print("\n Plotting... \n")
+  
+  plt.clf()
+
+
   plot_acc = plt.figure(1)
   
 
@@ -82,7 +86,7 @@ def threaded_recv(recv_conn ):
   np.savetxt(fft_filename, data_fft, delimiter=',', header="f,ax,ay,az")
   
   
-  plt.clf()
+  
 
   plt.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
   plt.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
@@ -96,9 +100,9 @@ def threaded_recv(recv_conn ):
 
   plot_fft = plt.figure(2)
 
-  plt.plot(acc_data['time'],acc_data['x'],label='x', linewidth=0.5)
-  plt.plot(acc_data['time'],acc_data['y'],label='y', linewidth=0.5)
-  plt.plot(acc_data['time'],acc_data['z'],label='z', linewidth=0.5)
+  plt.plot(acc_data['time'][10:],acc_data['x'][10:],label='x', linewidth=0.5)
+  plt.plot(acc_data['time'][10:],acc_data['y'][10:],label='y', linewidth=0.5)
+  plt.plot(acc_data['time'][10:],acc_data['z'][10:],label='z', linewidth=0.5)
   plt.legend(loc='upper right')
   plt.title("Acceleration")
   
