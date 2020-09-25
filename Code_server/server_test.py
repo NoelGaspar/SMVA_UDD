@@ -38,7 +38,7 @@ print("\n Server is listing on port:",PORT,"\n")
 
 server_socket.bind(('',PORT))
 server_socket.listen(10)
-server_socket.settimeout(5.0)
+
 
 def threaded_recv(recv_conn ):
   time_now = datetime.now()
@@ -48,12 +48,12 @@ def threaded_recv(recv_conn ):
   rcv_file = open(rcv_filename,"wb")
   
   #read header
-  recv_header = recv_conn.recv(BUFF_SIZE).decode()
-  filname,recv_filesize = recv_header.split(SEPARATOR)
-  recv_filesize = int(recv_filesize)
+  #recv_header = recv_conn.recv(BUFF_SIZE).decode()
+  #filname,recv_filesize = recv_header.split(SEPARATOR)
+  #recv_filesize = int(recv_filesize)
+  #
+  #print(f"reciving data. file size:{recv_filesize}")
   
-  print(f"reciving data. file size:{recv_filesize}")
-  recv_conn.settimeout(5.0)
   RecivedData = recv_conn.recv(BUFF_SIZE)
   while RecivedData:
     #print("writing data")

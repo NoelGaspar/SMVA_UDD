@@ -23,7 +23,7 @@ SMAPLE_TIME = 2.5  # [s]
 BUFF_SIZE = 4096
 SEPARATOR = ","
 
-PATH_DATA = "./recived_data/"
+PATH_DATA = "./sended_data/"
 
 def signal_handler(sig,frame):
   GPIO.cleanup()
