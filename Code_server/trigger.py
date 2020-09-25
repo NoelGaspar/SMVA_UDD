@@ -92,14 +92,14 @@ if __name__ == '__main__':
       command =  int(input("ingrese opción"))
       if command == 1:
         triggerOnce()
-        elif command == 2:  
-          triggerAuto(True)
-        elif command == 3:  
-          triggerAuto(False)
-        elif command == 4:   
-          triggerMenu()
-        elif command == 5:
-          esp.close()
-          sys.exit()
-        else:
-          triggerMenu()
+      elif command == 2:  
+        triggerAuto(True)
+      elif command == 3:  
+        triggerAuto(False)
+      elif command == 4:   
+        triggerMenu()
+      elif command == 5:
+        esp.close()
+        sys.exit()
+      else:
+        triggerMenu()
