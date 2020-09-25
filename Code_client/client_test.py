@@ -44,7 +44,7 @@ def trigger_callback(channel):
   send_file_size = os.path.getsize(send_filename)
   
   #send header
-  client_socket.send(f"{send_filename}{SEPARATOR}{send_file_size}".encode())
+  #client_socket.send(f"{send_filename}{SEPARATOR}{send_file_size}".encode())
 
   #send the complete file
   send_file = open(send_filename, "rb")
