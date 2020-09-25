@@ -71,13 +71,15 @@ if __name__ == '__main__':
       print('trigger.py -p <port>')
     elif opt in ("-p", "--port"):
       print("port",arg)
-      #COM_PORT =  arg
+      COM_PORT =  arg
       start = True
-  
+    elif opt in ("-s", "--start"):
+      start = True
+
   if start :
     com_init(COM_PORT)
     triggerAuto(False)
-    com_close()
+    #com_close()
     
     triggerMenu()
     while True:
@@ -95,5 +97,3 @@ if __name__ == '__main__':
         sys.exit()
       else:
         triggerMenu()
-
-    
