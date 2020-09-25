@@ -73,9 +73,9 @@ def threaded_recv(recv_conn ):
   
   plt.clf()
 
+  plt.figure(1)
+  plt.subplot(211)
 
-  plot_acc = plt.figure(1)
-  
 
   acc_data = np.genfromtxt(rcv_filename, delimiter=',', names=True)
   acc_x, freq_x, _ = mlab.specgram(acc_data['x'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
@@ -86,19 +86,17 @@ def threaded_recv(recv_conn ):
   np.savetxt(fft_filename, data_fft, delimiter=',', header="f,ax,ay,az")
   
   
-  
-
   plt.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
   plt.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
   plt.plot(freq_z[10:], acc_z[10:], label='z', linewidth=0.5)
+  
   plt.yscale('log')
   plt.xlim((0, 200))
   plt.legend(loc='upper right')
   plt.title('FFT')
   #plt.show()
   #plt.savefig('spectrum.png')
-
-  plot_fft = plt.figure(2)
+  plt.subplot(212)
 
   plt.plot(acc_data['time'][10:],acc_data['x'][10:],label='x', linewidth=0.5)
   plt.plot(acc_data['time'][10:],acc_data['y'][10:],label='y', linewidth=0.5)
@@ -107,7 +105,6 @@ def threaded_recv(recv_conn ):
   plt.title("Acceleration")
   
   plt.show()
-
 
 com_init(COM_PORT)
 triggerAuto(True)
