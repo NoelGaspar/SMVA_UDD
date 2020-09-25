@@ -8,6 +8,7 @@ import socket
 import signal
 import sys
 import os
+import subprocess
 import RPi.GPIO as GPIO
 import time
 
@@ -63,7 +64,7 @@ if __name__ == '__main__':
   GPIO.setmode(GPIO.BCM)
   GPIO.setup(TRIGGER_GPIO,GPIO.IN)
 
-  GPIO.add_event_detect(TRIGGER_GPIO,GPIO.RISSING,callback = trigger_callback, bouncetime=100)
+  GPIO.add_event_detect(TRIGGER_GPIO,RISING,callback = trigger_callback, bouncetime=100)
   signal.signal(signal.SIGINT,signal_handler)
   signal.pause()
 
