@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
   #start = False
 
-  start = False
+#  start = False
 #  try:
 #    opts,args = getopt.getopt(sys.argv[1:],"hps:",["port="])
 #  except getopt.GetoptError:
@@ -82,25 +82,28 @@ if __name__ == '__main__':
 #      start = True
 #    elif opt in ("-s", "--start"):
 #      start = True
-
-  if start :
-    com_init(COM_PORT)
-    triggerAuto(False)
-    #com_close()
-  
-    triggerMenu()
-    while True:
-      command =  int(input("ingrese opción"))
-      if command == 1:
-        triggerOnce()
-      elif command == 2:  
-        triggerAuto(True)
-      elif command == 3:  
-        triggerAuto(False)
-      elif command == 4:   
-        triggerMenu()
-      elif command == 5:
-        esp.close()
-        sys.exit()
-      else:
-        triggerMenu()
+  com_init(COM_PORT)
+  print("sending trigger")
+  triggerOnce()
+  com_clse()
+#  if start :
+#    com_init(COM_PORT)
+#    triggerAuto(False)
+#    #com_close()
+#  
+#    triggerMenu()
+#    while True:
+#      command =  int(input("ingrese opción"))
+#      if command == 1:
+#        triggerOnce()
+#      elif command == 2:  
+#        triggerAuto(True)
+#      elif command == 3:  
+#        triggerAuto(False)
+#      elif command == 4:   
+#        triggerMenu()
+#      elif command == 5:
+#        esp.close()
+#        sys.exit()
+#      else:
+#        triggerMenu()
