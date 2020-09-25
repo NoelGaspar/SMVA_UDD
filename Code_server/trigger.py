@@ -7,7 +7,7 @@ import time
 import serial_com
 import threading
 
-COM_PORT = 'COM4'
+COM_PORT = 'COM5'
 COM_BYID = 'usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0'
 CMD_TRIGGER = b'1'
 CMD_STOP    = b'2'

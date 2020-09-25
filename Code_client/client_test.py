@@ -19,8 +19,8 @@ SERVER_PORT = 777
 SAMPLE_RATE = 3200 # [Hz]
 SMAPLE_TIME = 2.5  # [s]
 
-BUFF_SIZE = 4000
-
+BUFF_SIZE = 4096
+SEPARATOR = ","
 
 PATH_DATA = "./recived_data/"
 
@@ -31,25 +31,42 @@ def signal_handler(sig,frame):
 
 def trigger_callback(channel):
   print("triggered")
+  
+  client_socket = socket.socket()
+  client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
+
+  #file name
   send_filename =PATH_DATA+str(int(time.time()))+".csv"
+  #read sensor
   os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
+  #file size to send
+  send_file_size = os.path.getsize(send_filename)
+  
+  #send header
+  client_socket.send(f"{send_filename}{SEPARATOR}{send_file_size}".encode())
+
+  #send the complete file
   send_file = open(send_filename, "rb")
+
   SendData = send_file.read(BUFF_SIZE)
-  client_socket.send(SendData)
+
+  while SendData:
+    
+    client_socket.send(SendData)
+    SendData = send_file.read(BUFF_SIZE)    
+  
   send_file.close()
+  client_socket.close()
 
 if __name__ == '__main__':
   
   GPIO.setmode(GPIO.BCM)
   GPIO.setup(TRIGGER_GPIO,GPIO.IN)
 
-  client_socket = socket.socket()
-  client_socket.connect((SERVER_IP_ADDR,SERVER_PORT))
-
   GPIO.add_event_detect(TRIGGER_GPIO,GPIO.RISSING,callback = trigger_callback, bouncetime=100)
   signal.signal(signal.SIGINT,signal_handler)
   signal.pause()
 
- 
+
   while(1): 
     pass
