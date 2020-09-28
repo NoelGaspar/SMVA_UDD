@@ -85,7 +85,7 @@ if __name__ == '__main__':
   com_init(COM_PORT)
   print("sending trigger")
   triggerOnce()
-  com_clse()
+  com_close()
 #  if start :
 #    com_init(COM_PORT)
 #    triggerAuto(False)
