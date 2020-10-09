@@ -67,6 +67,7 @@ def threaded_recv(recv_conn, plt_en):
   rcv_file.close()
   print("\n File has been copied successfully \n")
   recv_conn.close()
+  
   if plt_en:
     print("\n Plotting... \n")
   
@@ -75,14 +76,15 @@ def threaded_recv(recv_conn, plt_en):
     plt.figure(1)
     plt.subplot(211)
 
-    acc_data = np.genfromtxt(rcv_filename, delimiter=',', names=True)
-    acc_x, freq_x, _ = mlab.specgram(acc_data['x'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
-    acc_y, freq_y, _ = mlab.specgram(acc_data['y'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
-    acc_z, freq_z, _ = mlab.specgram(acc_data['z'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  acc_data = np.genfromtxt(rcv_filename, delimiter=',', names=True)
+  acc_x, freq_x, _ = mlab.specgram(acc_data['x'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  acc_y, freq_y, _ = mlab.specgram(acc_data['y'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
+  acc_z, freq_z, _ = mlab.specgram(acc_data['z'], Fs=SAMPLE_RATE, NFFT=SAMPLE_RATE * SMAPLE_TIME)
   
-    data_fft = np.column_stack((freq_x,acc_x,acc_y,acc_z))
-    np.savetxt(fft_filename, data_fft, delimiter=',', header="f,ax,ay,az")
+  data_fft = np.column_stack((freq_x,acc_x,acc_y,acc_z))
+  np.savetxt(fft_filename, data_fft, delimiter=',', header="f,ax,ay,az")
   
+  if plot_en:
     plt.plot(freq_x[10:], acc_x[10:], label='x', linewidth=0.5)
     plt.plot(freq_y[10:], acc_y[10:], label='y', linewidth=0.5)
     plt.plot(freq_z[10:], acc_z[10:], label='z', linewidth=0.5)
