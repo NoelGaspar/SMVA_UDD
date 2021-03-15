@@ -13,7 +13,7 @@ import time
 
 TRIGGER_GPIO = 19
 
-SERVER_IP_ADDR = '192.168.0.12'
+SERVER_IP_ADDR ='192.168.0.9' #'192.168.0.12'
 SERVER_PORT = 777
 
 SAMPLE_RATE = 3200 # [Hz]
@@ -31,7 +31,7 @@ def signal_handler(sig,frame):
 
 def trigger_callback(channel):
   print("triggered")
-  send_filename =PATH_DATA+str(int(time.time()))+".csv"
+  send_filename = PATH_DATA + str(int(time.time())) + ".csv"
   os.system(f'sudo adxl345spi -t {SMAPLE_TIME} -f {SAMPLE_RATE} -s {send_filename}')
   send_file = open(send_filename, "rb")
   SendData = send_file.read(BUFF_SIZE)

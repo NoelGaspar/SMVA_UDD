@@ -5,9 +5,9 @@
 #
 
 
-print("Access-Control-Allow-Origin: *")
-print("Content-Type: application/json; charset=UTF-8")
-print()
+#print("Access-Control-Allow-Origin: *")
+#print("Content-Type: application/json; charset=UTF-8")
+#print()
 
 import socket
 import signal
